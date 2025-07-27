@@ -43,10 +43,13 @@ class FlowFieldEffect {
     this.lastTime = 0;
     this.interval = 1000 / 60; // in milliseconds
     this.timer = 0;
-    this.cellSize = 30;
+    this.cellSize = 15;
+    this.gridSize = 30;
     this.gradient;
     this.#createGradient();
     this.#ctx.strokeStyle = this.gradient;
+    this.radius = 0;
+    this.vr = 0.03; // velocity radius
   }
 
   #createGradient() {
@@ -63,14 +66,35 @@ class FlowFieldEffect {
   }
 
   // private class method
-  #drawLine(x, y) {
-    const length = 300;
+  #drawLine(angle, x, y) {
+    let position = { x: x, y: y };
+    let dx = mouse.x - position.x;
+    let dy = mouse.y - position.y;
+    let distance = dx * dx + dy * dy;
+
+    if (distance > 300000) {
+      distance = 300000
+    }
+    else if (distance < 50000) {
+      distance = 50000
+    }
+
+    let length = distance / 10000;
     this.#ctx.beginPath();
     this.#ctx.moveTo(x, y);
-    this.#ctx.lineTo(x, y + 30);
-    this.#ctx.lineTo(x+30, y+30);
-    this.#ctx.lineTo(x+30, y);
+    this.#ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
+    this.#ctx.lineWidth = 1;
+    this.#ctx.stroke();
+  }
+
+  #drawGrid(x,y) {
+    this.#ctx.beginPath();
+    this.#ctx.moveTo(x, y);
+    this.#ctx.lineTo(x, y + this.gridSize);
+    this.#ctx.lineTo(x+this.gridSize, y+this.gridSize);
+    this.#ctx.lineTo(x+this.gridSize, y);
     this.#ctx.lineTo(x, y);
+    this.#ctx.lineWidth = 0.3;
     this.#ctx.stroke();
   }
 
@@ -82,10 +106,20 @@ class FlowFieldEffect {
       this.#ctx.clearRect(0, 0, this.#width, this.#height);
 
       // draw a grid
+      for (let y = 0; y < this.#width; y += this.gridSize) {
+        for (let x = 0; x < this.#height; x += this.gridSize) {
+          this.#drawGrid(x,y)
+        }
+      }
+
+      this.radius += this.vr;
+      if (this.radius > 5 || this.radius < -5) {
+        this.vr *= -1;
+      }
       for (let y = 0; y < this.#width; y += this.cellSize) {
         for (let x = 0; x < this.#height; x += this.cellSize) {
-          // this.#draw(this.#width / 2, this.#height / 2);
-          this.#drawLine(x,y)
+          const angle = (Math.cos(x * 0.01) + Math.sin(y * 0.01))* this.radius;
+          this.#drawLine(angle, x,y)
         }
       }
 
