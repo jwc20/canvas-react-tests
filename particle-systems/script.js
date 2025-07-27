@@ -39,6 +39,12 @@ class Particle {
       this.vy *= -1;
     }
   }
+  reset() {
+    this.x =
+      this.radius + Math.random() * (this.effect.width - this.radius * 2);
+    this.y =
+      this.radius + Math.random() * (this.effect.height - this.radius * 2);
+  }
 }
 
 class Effect {
@@ -104,6 +110,9 @@ class Effect {
     gradient.addColorStop(1, "blue");
     this.context.fillStyle = gradient;
     this.context.strokeStyle = "white";
+    // this.particles.forEach((particle) => {
+    //   particle.reset();
+    // })
   }
 }
 
