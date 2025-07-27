@@ -62,6 +62,26 @@ class Effect {
       particle.draw(context);
       particle.update();
     });
+    this.connectParticles(context);
+  }
+  connectParticles(context) {
+    const maxDistance = 100;
+    for (let a = 0; a < this.particles.length; a++) {
+      for (let b = a; b < this.particles.length; b++) {
+        const dx = this.particles[a].x - this.particles[b].x;
+        const dy = this.particles[a].y - this.particles[b].y;
+        const distance = Math.hypot(dx,dy);
+
+        if (distance < maxDistance) {
+          context.strokeStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+          context.beginPath();
+          context.moveTo(this.particles[a].x, this.particles[a].y);
+          context.lineTo(this.particles[b].x, this.particles[b].y);
+          context.stroke();
+        }
+
+      }
+    }
   }
 }
 
