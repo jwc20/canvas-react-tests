@@ -37,14 +37,29 @@ class FlowFieldEffect {
   #height;
   constructor(ctx, width, height) {
     this.#ctx = ctx;
-    this.#ctx.strokeStyle = "white";
     this.#width = width;
     this.#height = height;
     this.angle = 0;
     this.lastTime = 0;
     this.interval = 1000 / 60; // in milliseconds
     this.timer = 0;
-    this.cellSize = 35;
+    this.cellSize = 30;
+    this.gradient;
+    this.#createGradient();
+    this.#ctx.strokeStyle = this.gradient;
+  }
+
+  #createGradient() {
+    this.gradient = this.#ctx.createLinearGradient(0, 0, this.#width, this.#height);
+    this.gradient.addColorStop(0.1, "#ff5c33");
+    this.gradient.addColorStop(0.2, "#ff9933");
+    this.gradient.addColorStop(0.3, "#ffff33");
+    this.gradient.addColorStop(0.4, "#b3ff33");
+    this.gradient.addColorStop(0.5, "#33ff99");
+    this.gradient.addColorStop(0.6, "#33ffff");
+    this.gradient.addColorStop(0.7, "#9933ff");
+    this.gradient.addColorStop(0.8, "#ff33ff");
+    this.gradient.addColorStop(0.9, "#ffff33");
   }
 
   // private class method
