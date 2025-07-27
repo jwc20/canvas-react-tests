@@ -8,9 +8,10 @@ class Particle {
   // for indiv particles
   constructor(effect) {
     this.effect = effect;
-    this.x = Math.random() * this.effect.width;
-    this.y = Math.random() * this.effect.height;
     this.radius = 15;
+    this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2);
+    this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
+
   }
   draw(context) {
     context.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
@@ -27,7 +28,7 @@ class Effect {
     this.width = canvas.width;
     this.height = canvas.height;
     this.particles = [];
-    this.numberOfParticles = 50;
+    this.numberOfParticles = 200;
     this.createParticles();
   }
   createParticles() {
