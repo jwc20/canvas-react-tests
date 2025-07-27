@@ -9,16 +9,20 @@ class Particle {
   constructor(effect) {
     this.effect = effect;
     this.radius = 15;
-    this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2);
-    this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
-
+    this.x =
+      this.radius + Math.random() * (this.effect.width - this.radius * 2);
+    this.y =
+      this.radius + Math.random() * (this.effect.height - this.radius * 2);
   }
   draw(context) {
-    context.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+    context.fillStyle = "hsl(" + this.x * 0.5 + ", 100%, 50%)";
     context.beginPath();
     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     context.fill();
     context.stroke();
+  }
+  update() {
+    this.x++;
   }
 }
 
@@ -39,11 +43,17 @@ class Effect {
   handleParticles(context) {
     this.particles.forEach((particle) => {
       particle.draw(context);
+      particle.update();
     });
   }
 }
 
 const effect = new Effect(canvas);
-effect.handleParticles(ctx);
 
-function animate() {}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  effect.handleParticles(ctx);
+  requestAnimationFrame(animate);
+}
+animate();
