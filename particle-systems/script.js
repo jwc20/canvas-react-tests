@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-ctx.fillStyle = "red";
+ctx.fillStyle = "white";
 
 class Particle {
   // for indiv particles
@@ -13,9 +13,11 @@ class Particle {
     this.radius = 15;
   }
   draw(context) {
+    context.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
     context.beginPath();
     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     context.fill();
+    context.stroke();
   }
 }
 
