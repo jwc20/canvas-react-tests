@@ -10,6 +10,7 @@ function App() {
   const handleGraphReady = (graphSystem) => {
     graphRef.current = graphSystem;
 
+    // graphSystem.node(startX, startY, radius, text)
     const nodeA = graphSystem.node(200, 150, 50, "A");
     const nodeB = graphSystem.node(400, 150, 40, "B");
     const nodeC = graphSystem.node(300, 300, 45, "C");

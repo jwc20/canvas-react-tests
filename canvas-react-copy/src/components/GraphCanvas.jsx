@@ -2,13 +2,9 @@ import { useCanvas } from '../hooks/useCanvas.js';
 import { GraphSystem } from '../lib/GraphSystem.js';
 
 const GraphCanvas = ({ onGraphReady, ...props }) => {
-  const { canvasRef, system } = useCanvas({
+  const { canvasRef } = useCanvas({
     onInit: (canvas, ctx) => {
-      const graphSystem = new GraphSystem(canvas, ctx, {
-        editable: false,
-        buildable: false,
-        fps: 60
-      });
+      const graphSystem = new GraphSystem(canvas, ctx);
       
       if (onGraphReady) {
         onGraphReady(graphSystem);
