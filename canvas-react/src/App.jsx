@@ -1,13 +1,12 @@
-import './App.css'
-import Canvas from './canvas'
+import "./App.css";
+import ParticleCanvas from "./components/ParticleCanvas.jsx";
 
 function App() {
-
   return (
     <>
-      <Canvas width="800" height="600" /> 
+      <ParticleCanvas />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
