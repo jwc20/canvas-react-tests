@@ -19,7 +19,7 @@ export class GridSystem {
     this.#ctx.lineTo(x + this.gridSize, y + this.gridSize);
     this.#ctx.lineTo(x + this.gridSize, y);
     this.#ctx.lineTo(x, y);
-    this.#ctx.lineWidth = 0.3;
+    this.#ctx.lineWidth = 1;
     this.#ctx.stroke();
   }
 

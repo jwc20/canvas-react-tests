@@ -5,7 +5,7 @@ const GridCanvas = (props) => {
   const { canvasRef } = useCanvas({
     onInit: (canvas, ctx) => {
       return new GridSystem(canvas, ctx, {
-        gridSize: 30,
+        gridSize: 50,
       });
     },
 
